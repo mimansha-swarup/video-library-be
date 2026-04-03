@@ -2,7 +2,7 @@ services:
   - type: web
     name: video-stream-backend
     env: node
-    buildCommand: npm install --include=dev && npm run build
+    buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: NODE_ENV
