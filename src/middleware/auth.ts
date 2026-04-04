@@ -34,6 +34,14 @@ export const authMiddleware = async (
 
     const decodedToken = await auth.verifyIdToken(token);
 
+    if (!decodedToken.approved) {
+      res.status(403).json({
+        success: false,
+        error: 'Access not granted',
+      });
+      return;
+    }
+
     req.user = {
       uid: decodedToken.uid,
       email: decodedToken.email || '',

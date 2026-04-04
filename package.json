@@ -8,6 +8,8 @@
     "build": "tsc",
     "start": "ts-node src/index.ts",
     "seed": "ts-node src/scripts/seed.ts",
+    "approve": "ts-node src/scripts/approve-user.ts",
+    "revoke": "ts-node src/scripts/revoke-user.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
