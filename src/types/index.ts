@@ -81,6 +81,19 @@ export interface ApiResponse<T> {
   message?: string;
 }
 
+// Lesson Note Types
+export interface LessonNote {
+  id: string;
+  userId: string;
+  lessonId: string;
+  content: string;
+  updatedAt: Date;
+}
+
+export interface UpsertNoteDto {
+  content: string;
+}
+
 // Course Progress Summary (used by GET /progress/summary)
 export interface CourseProgressSummary {
   courseId: string;

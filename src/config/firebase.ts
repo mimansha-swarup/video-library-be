@@ -20,6 +20,7 @@ export const collections = {
   modules: db.collection('modules'),
   lessons: db.collection('lessons'),
   userProgress: db.collection('userProgress'),
+  lessonNotes: db.collection('lessonNotes'),
 };
 
 export default admin;

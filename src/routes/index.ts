@@ -4,6 +4,7 @@ import moduleRoutes from './moduleRoutes';
 import lessonRoutes from './lessonRoutes';
 import videoRoutes from './videoRoutes';
 import progressRoutes from './progressRoutes';
+import noteRoutes from './noteRoutes';
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/modules', moduleRoutes);
 router.use('/lessons', lessonRoutes);
 router.use('/video', videoRoutes);
 router.use('/progress', progressRoutes);
+router.use('/notes', noteRoutes);
 
 export default router;
