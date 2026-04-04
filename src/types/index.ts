@@ -81,6 +81,15 @@ export interface ApiResponse<T> {
   message?: string;
 }
 
+// Course Progress Summary (used by GET /progress/summary)
+export interface CourseProgressSummary {
+  courseId: string;
+  completedLessons: number;
+  totalLessons: number;
+  lastWatchedLessonId: string | null;
+  lastWatchedSecond: number;
+}
+
 // Video Stream Response
 export interface StreamUrlResponse {
   streamUrl: string;
