@@ -4,9 +4,18 @@ import { videoService, lessonService } from '../services';
 import { config } from '../config/env';
 import { AppError } from '../middleware/errorHandler';
 import multer from 'multer';
+import os from 'os';
+import fs from 'fs';
 
-// Configure multer for memory storage
-const storage = multer.memoryStorage();
+// Use disk storage to avoid loading large video files into memory
+const storage = multer.diskStorage({
+  destination: os.tmpdir(),
+  filename: (_req, file, cb) => {
+    const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `upload-${unique}-${file.originalname}`);
+  },
+});
+
 export const upload = multer({
   storage,
   limits: {
@@ -90,8 +99,8 @@ export class VideoController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
+    const file = req.file;
     try {
-      const file = req.file;
       const { courseSlug, moduleOrder, lessonOrder } = req.body;
 
       if (!file) {
@@ -109,7 +118,7 @@ export class VideoController {
         file.originalname
       );
 
-      await videoService.uploadVideo(videoKey, file.buffer, file.mimetype);
+      await videoService.uploadVideo(videoKey, file.path, file.mimetype);
 
       res.status(201).json({
         success: true,
@@ -120,6 +129,11 @@ export class VideoController {
       });
     } catch (error) {
       next(error);
+    } finally {
+      // Clean up temp file regardless of success or failure
+      if (file?.path) {
+        fs.unlink(file.path, () => {});
+      }
     }
   }
 
